@@ -1,0 +1,113 @@
+{
+  "guildId": "YOUR_SERVER_ID",
+  "requestChannelId": "REQUEST_TEST_CHANNEL_ID",
+  "resultsChannelId": "RESULTS_CHANNEL_ID",
+  "waitlistCategoryId": "WAITLIST_CATEGORY_ID",
+  "managerRoleIds": [],
+  "testerRoleIds": [],
+  "brand": {
+    "name": "MCTIERS",
+    "iconUrl": "",
+    "accentColor": "#5865F2",
+    "closedColor": "#ED4245",
+    "resultsColor": "#FF0000"
+  },
+  "waitlist": {
+    "maxQueueSize": 20,
+    "queueRefreshSeconds": 10,
+    "pingOnStart": true
+  },
+  "testingTickets": {
+    "categoryId": "",
+    "greenCircleEmoji": "\ud83d\udfe2",
+    "deleteOnClose": true
+  },
+  "highTierTickets": {
+    "enabled": false,
+    "categoryId": "",
+    "minimumTier": "High Tier 3"
+  },
+  "regions": ["EU", "NA", "AS", "AU", "SA", "ME"],
+  "tiers": [
+    "High Tier 1",
+    "Low Tier 1",
+    "High Tier 2",
+    "Low Tier 2",
+    "High Tier 3",
+    "Low Tier 3",
+    "High Tier 4",
+    "Low Tier 4",
+    "High Tier 5",
+    "Low Tier 5"
+  ],
+  "modes": [
+    {
+      "id": "crystal",
+      "name": "Crystal",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "uhc",
+      "name": "UHC",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "pot",
+      "name": "Pot",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "netpot",
+      "name": "NetPot",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "smp",
+      "name": "SMP",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "sword",
+      "name": "Sword",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "axe",
+      "name": "Axe",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "mace",
+      "name": "Mace",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "chaosmace",
+      "name": "ChaosMace",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "spearmace",
+      "name": "Spear Mace",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    }
+  ],
+  "resultReactions": [
+    "\ud83d\udc51",
+    "\ud83c\udf89",
+    "\ud83d\ude31",
+    "\ud83d\ude2d",
+    "\ud83d\ude02",
+    "\ud83d\udc80"
+  ]
+}

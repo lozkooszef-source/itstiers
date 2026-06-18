@@ -126,6 +126,24 @@ Set these environment variables in the host dashboard instead of committing `.en
 - `STATIC_SITE_DIR=./site`
 - `PVPCLUB_TOKEN` if you want PvPClub custom names
 
+## Website On Vercel
+
+Vercel should host only the website and `/api/v2` serverless API. Keep the Discord bot on bot hosting.
+
+1. Open [Vercel](https://vercel.com) and click `Add New` -> `Project`.
+2. Import this GitHub repo: `lozkooszef-source/itstiers`.
+3. Keep the project root as the repository root.
+4. Framework preset: `Other`.
+5. Build command: leave empty.
+6. Output directory: leave empty.
+7. Add environment variables:
+
+- `DATABASE_URL`
+- `DATABASE_SSL=true`
+- `PVPCLUB_TOKEN` if you want PvPClub custom names
+
+The included `vercel.json` serves the static frontend from `site/` and maps `/api/v2/...` to Vercel serverless functions.
+
 ## Commands
 
 - `/setup` - sends the request panel with buttons to `request-test`.

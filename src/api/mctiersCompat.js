@@ -11,6 +11,8 @@ const POINTS = {
 };
 
 const MODE_ALIASES = new Map([
+  ['ltm', 'crystal'],
+  ['2v2', 'crystal'],
   ['vanilla', 'crystal'],
   ['nethop', 'netpot'],
   ['netop', 'netpot'],
@@ -244,6 +246,19 @@ function sortModePlayers(players) {
   });
 }
 
+function addModeAlias(entries, sourceKey, aliasKey, name, icon) {
+  const source = entries[sourceKey];
+
+  if (source && !entries[aliasKey]) {
+    entries[aliasKey] = {
+      ...source,
+      id: aliasKey,
+      name,
+      icon
+    };
+  }
+}
+
 async function mctiersModeList() {
   const entries = {};
 
@@ -264,13 +279,9 @@ async function mctiersModeList() {
   const crystal = entries.crystal;
   const netpot = entries.netpot;
 
-  if (crystal && !entries.vanilla) {
-    entries.vanilla = { ...crystal, id: 'vanilla', name: crystal.name };
-  }
-
-  if (netpot && !entries.nethop) {
-    entries.nethop = { ...netpot, id: 'nethop', name: netpot.name };
-  }
+  addModeAlias(entries, 'crystal', 'ltm', 'LTMs', '2v2.svg');
+  addModeAlias(entries, 'crystal', 'vanilla', crystal?.name || 'Vanilla', 'vanilla.svg');
+  addModeAlias(entries, 'netpot', 'nethop', netpot?.name || 'NethOP', 'nethop.svg');
 
   return entries;
 }
@@ -297,11 +308,17 @@ async function mctiersMode(modeId, from = 0, count = 10) {
     columns[player.tier].push(player);
   }
 
+  const page = {};
+
   for (const tier of Object.keys(columns)) {
-    columns[tier] = columns[tier].slice(offset, offset + size);
+    const slice = columns[tier].slice(offset, offset + size);
+
+    if (slice.length > 0) {
+      page[tier] = slice;
+    }
   }
 
-  return columns;
+  return page;
 }
 
 async function mctiersProfile(identifier) {

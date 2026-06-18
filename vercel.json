@@ -67,8 +67,56 @@
       "destination": "/api/v2?path=:path*"
     },
     {
+      "source": "/rankings/overall",
+      "destination": "/site/rankings/overall.html"
+    },
+    {
+      "source": "/rankings/ltm",
+      "destination": "/site/rankings/ltm.html"
+    },
+    {
+      "source": "/rankings/vanilla",
+      "destination": "/site/rankings/vanilla.html"
+    },
+    {
+      "source": "/rankings/uhc",
+      "destination": "/site/rankings/uhc.html"
+    },
+    {
+      "source": "/rankings/pot",
+      "destination": "/site/rankings/pot.html"
+    },
+    {
+      "source": "/rankings/nethop",
+      "destination": "/site/rankings/nethop.html"
+    },
+    {
+      "source": "/rankings/smp",
+      "destination": "/site/rankings/smp.html"
+    },
+    {
+      "source": "/rankings/sword",
+      "destination": "/site/rankings/sword.html"
+    },
+    {
+      "source": "/rankings/axe",
+      "destination": "/site/rankings/axe.html"
+    },
+    {
+      "source": "/rankings/mace",
+      "destination": "/site/rankings/mace.html"
+    },
+    {
+      "source": "/_next/static/chunks/b70f127b5a6ba32e.css",
+      "destination": "/site/css/b70f127b5a6ba32e.css"
+    },
+    {
       "source": "/_next/static/chunks/:path*",
       "destination": "/site/js/:path*"
+    },
+    {
+      "source": "/_next/static/fonts/:path*",
+      "destination": "/site/fonts/:path*"
     },
     {
       "source": "/_next/static/media/:path*",

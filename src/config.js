@@ -8,6 +8,21 @@ dotenv.config({ path: path.join(rootDir, '.env') });
 const configPath = path.resolve(rootDir, process.env.CONFIG_PATH || './config.json');
 const dataPath = path.resolve(rootDir, process.env.DATA_PATH || './data/state.json');
 
+let bundledConfig = null;
+let bundledExampleConfig = null;
+
+try {
+  bundledConfig = require('../config.json');
+} catch (error) {
+  bundledConfig = null;
+}
+
+try {
+  bundledExampleConfig = require('../config.example.json');
+} catch (error) {
+  bundledExampleConfig = null;
+}
+
 class ConfigError extends Error {
   constructor(message) {
     super(message);
@@ -17,6 +32,16 @@ class ConfigError extends Error {
 
 function readJson(filePath) {
   if (!fs.existsSync(filePath)) {
+    const basename = path.basename(filePath);
+
+    if (basename === 'config.json' && bundledConfig) {
+      return bundledConfig;
+    }
+
+    if (basename === 'config.example.json' && bundledExampleConfig) {
+      return bundledExampleConfig;
+    }
+
     throw new Error(
       `Missing ${path.basename(filePath)}. Copy config.example.json to config.json and fill your Discord IDs.`
     );

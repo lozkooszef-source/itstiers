@@ -1,8 +1,106 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/rankings/overall",
+      "permanent": false
+    },
+    {
+      "source": "/rankings",
+      "destination": "/rankings/overall",
+      "permanent": false
+    },
+    {
+      "source": "/overall",
+      "destination": "/rankings/overall",
+      "permanent": false
+    },
+    {
+      "source": "/ltm",
+      "destination": "/rankings/ltm",
+      "permanent": false
+    },
+    {
+      "source": "/vanilla",
+      "destination": "/rankings/vanilla",
+      "permanent": false
+    },
+    {
+      "source": "/uhc",
+      "destination": "/rankings/uhc",
+      "permanent": false
+    },
+    {
+      "source": "/pot",
+      "destination": "/rankings/pot",
+      "permanent": false
+    },
+    {
+      "source": "/nethop",
+      "destination": "/rankings/nethop",
+      "permanent": false
+    },
+    {
+      "source": "/smp",
+      "destination": "/rankings/smp",
+      "permanent": false
+    },
+    {
+      "source": "/sword",
+      "destination": "/rankings/sword",
+      "permanent": false
+    },
+    {
+      "source": "/axe",
+      "destination": "/rankings/axe",
+      "permanent": false
+    },
+    {
+      "source": "/mace",
+      "destination": "/rankings/mace",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/v2/:path*",
       "destination": "/api/v2?path=:path*"
+    },
+    {
+      "source": "/_next/static/chunks/:path*",
+      "destination": "/site/js/:path*"
+    },
+    {
+      "source": "/_next/static/media/:path*",
+      "destination": "/site/fonts/:path*"
+    },
+    {
+      "source": "/rankings/css/:path*",
+      "destination": "/site/css/:path*"
+    },
+    {
+      "source": "/rankings/fonts/:path*",
+      "destination": "/site/fonts/:path*"
+    },
+    {
+      "source": "/rankings/images/:path*",
+      "destination": "/site/images/:path*"
+    },
+    {
+      "source": "/rankings/js/:path*",
+      "destination": "/site/js/:path*"
+    },
+    {
+      "source": "/tier_icons/:path*",
+      "destination": "/site/images/:path*"
+    },
+    {
+      "source": "/icons/:path*",
+      "destination": "/site/images/:path*"
+    },
+    {
+      "source": "/nav_icons/:path*",
+      "destination": "/site/images/:path*"
     },
     {
       "source": "/css/:path*",

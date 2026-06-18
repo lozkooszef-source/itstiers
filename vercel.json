@@ -103,6 +103,14 @@
       "destination": "/site/images/:path*"
     },
     {
+      "source": "/placements/:path*",
+      "destination": "/site/images/:path*"
+    },
+    {
+      "source": "/titles/:path*",
+      "destination": "/site/images/:path*"
+    },
+    {
       "source": "/css/:path*",
       "destination": "/site/css/:path*"
     },

@@ -4,6 +4,7 @@ const {
   mctiersOverall,
   mctiersProfile
 } = require('../src/api/mctiersCompat');
+const { hasDatabase, query } = require('../src/db/pool');
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -73,6 +74,56 @@ async function pvpClub(res, identifier) {
   res.end(body);
 }
 
+async function health() {
+  const result = {
+    ok: true,
+    databaseConfigured: hasDatabase(),
+    databaseSsl: process.env.DATABASE_SSL === 'true',
+    tables: {
+      players: false,
+      testResults: false,
+      waitlistSnapshots: false
+    }
+  };
+
+  if (!result.databaseConfigured) {
+    return result;
+  }
+
+  try {
+    const tables = await query(
+      `
+        SELECT
+          to_regclass('public.players') AS players,
+          to_regclass('public.test_results') AS test_results,
+          to_regclass('public.waitlist_snapshots') AS waitlist_snapshots
+      `
+    );
+    const row = tables.rows[0] || {};
+
+    result.tables.players = Boolean(row.players);
+    result.tables.testResults = Boolean(row.test_results);
+    result.tables.waitlistSnapshots = Boolean(row.waitlist_snapshots);
+
+    if (result.tables.testResults) {
+      const count = await query('SELECT COUNT(*)::int AS count FROM test_results');
+      result.resultCount = count.rows[0]?.count || 0;
+    }
+
+    return result;
+  } catch (error) {
+    return {
+      ok: false,
+      databaseConfigured: true,
+      databaseSsl: process.env.DATABASE_SSL === 'true',
+      error: {
+        code: error.code || error.name || 'unknown',
+        message: error.message
+      }
+    };
+  }
+}
+
 module.exports = async function handler(req, res) {
   setCors(res);
 
@@ -90,6 +141,11 @@ module.exports = async function handler(req, res) {
   try {
     const parts = pathParts(req);
     const [resource, first, second] = parts;
+
+    if (resource === 'health') {
+      json(res, 200, await health());
+      return;
+    }
 
     if (resource === 'mode' && first === 'list') {
       json(res, 200, await mctiersModeList());

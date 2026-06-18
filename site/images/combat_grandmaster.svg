@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Combat Grandmaster">
+  <circle cx="64" cy="64" r="54" fill="#111827" stroke="#f59e0b" stroke-width="6"/>
+  <path d="M24 39 46 48l18-30 18 30 22-9-9 56H33z" fill="#facc15" stroke="#713f12" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="64" cy="65" r="20" fill="#fff7ad" stroke="#713f12" stroke-width="5"/>
+  <path d="M44 91h40M36 54l12 8m44-8-12 8" stroke="#fff7ad" stroke-width="6" stroke-linecap="round"/>
+</svg>

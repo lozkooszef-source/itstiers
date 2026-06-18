@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Combat Ace">
+  <circle cx="64" cy="64" r="54" fill="#111827" stroke="#fb7185" stroke-width="6"/>
+  <path d="M64 14 78 45l34 4-25 24 7 34-30-17-30 17 7-34-25-24 34-4z" fill="#fb7185" stroke="#7f1d1d" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M64 28 73 51l24 3-18 17 5 24-20-12-20 12 5-24-18-17 24-3z" fill="#fecdd3" opacity=".85"/>
+</svg>

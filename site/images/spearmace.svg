@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SpearMace">
+  <defs>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e0f2fe"/>
+      <stop offset=".5" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#92400e"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="55" fill="#101827" stroke="#334155" stroke-width="5"/>
+  <path d="M68 34 94 14 81 45 111 42 82 59 100 84 72 72 63 115 56 72 28 84 46 59 17 42 47 45 34 14 60 34z" fill="url(#blade)" stroke="#0f172a" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M61 51h7v59h-7z" fill="url(#wood)" stroke="#0f172a" stroke-width="3"/>
+  <path d="M50 56h29l-6 13H56z" fill="#facc15" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M65 27v34M38 42l24 17m28-17L66 59" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+</svg>

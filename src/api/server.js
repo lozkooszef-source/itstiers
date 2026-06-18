@@ -11,11 +11,11 @@ const {
   listWaitlists
 } = require('../db/repository');
 const {
-  mctiersMode,
-  mctiersModeList,
-  mctiersOverall,
-  mctiersProfile
-} = require('./mctiersCompat');
+  itstiersMode,
+  itstiersModeList,
+  itstiersOverall,
+  itstiersProfile
+} = require('./itstiersCompat');
 
 function corsOptions() {
   const origin = process.env.CORS_ORIGIN || '*';
@@ -137,7 +137,7 @@ function createApiServer() {
   });
 
   app.get('/api/v2/mode/list', asyncRoute(async (req, res) => {
-    res.json(await mctiersModeList());
+    res.json(await itstiersModeList());
   }));
 
   app.get('/api/v2/pvpclub/:uuid', asyncRoute(async (req, res) => {
@@ -174,11 +174,11 @@ function createApiServer() {
   }));
 
   app.get('/api/v2/mode/overall', asyncRoute(async (req, res) => {
-    res.json(await mctiersOverall(req.query.from, req.query.count));
+    res.json(await itstiersOverall(req.query.from, req.query.count));
   }));
 
   app.get('/api/v2/mode/:mode', asyncRoute(async (req, res) => {
-    const mode = await mctiersMode(req.params.mode, req.query.from, req.query.count);
+    const mode = await itstiersMode(req.params.mode, req.query.from, req.query.count);
 
     if (!mode) {
       res.status(404).json({ error: 'mode_not_found' });
@@ -189,7 +189,7 @@ function createApiServer() {
   }));
 
   app.get('/api/v2/profile/by-name/:name', asyncRoute(async (req, res) => {
-    const profile = await mctiersProfile(req.params.name);
+    const profile = await itstiersProfile(req.params.name);
 
     if (!profile) {
       res.status(404).json({ error: 'player_not_found' });
@@ -200,7 +200,7 @@ function createApiServer() {
   }));
 
   app.get('/api/v2/profile/:identifier', asyncRoute(async (req, res) => {
-    const profile = await mctiersProfile(req.params.identifier);
+    const profile = await itstiersProfile(req.params.identifier);
 
     if (!profile) {
       res.status(404).json({ error: 'player_not_found' });

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 190" role="img" aria-label="ItsTiers">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff06a"/>
+      <stop offset=".42" stop-color="#ffb321"/>
+      <stop offset="1" stop-color="#f45b1d"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a7f03c"/>
+      <stop offset="1" stop-color="#24b866"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-35%" width="120%" height="170%">
+      <feDropShadow dx="0" dy="6" stdDeviation="0" flood-color="#111827" flood-opacity=".95"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#000000" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M18 126 51 42h65l-12 29H67l-6 15h35l-11 28H50l-5 12h40l-12 29H8z" fill="url(#green)" stroke="#3b2113" stroke-width="6" stroke-linejoin="round"/>
+    <text x="118" y="130" font-family="Arial Black, Impact, sans-serif" font-size="86" font-weight="900" letter-spacing="0" fill="url(#gold)" stroke="#3b2113" stroke-width="7" paint-order="stroke">ItsTiers</text>
+    <text x="118" y="130" font-family="Arial Black, Impact, sans-serif" font-size="86" font-weight="900" letter-spacing="0" fill="none" stroke="#ffe58a" stroke-width="2" opacity=".9">ItsTiers</text>
+  </g>
+  <g opacity=".9">
+    <rect x="113" y="146" width="448" height="7" rx="3.5" fill="#1d4ed8"/>
+    <rect x="113" y="158" width="304" height="6" rx="3" fill="#22c55e"/>
+  </g>
+</svg>

@@ -6,7 +6,7 @@
   "managerRoleIds": [],
   "testerRoleIds": [],
   "brand": {
-    "name": "MCTIERS",
+    "name": "ItsTiers",
     "iconUrl": "",
     "accentColor": "#5865F2",
     "closedColor": "#ED4245",
@@ -97,7 +97,7 @@
     },
     {
       "id": "spearmace",
-      "name": "Spear Mace",
+      "name": "SpearMace",
       "cooldownHours": 24,
       "testerRoleIds": ["1492532456811663361"]
     }

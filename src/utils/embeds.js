@@ -7,17 +7,17 @@ const {
 const { config } = require('../config');
 const { color, discordTimestamp, formatDuration, minecraftAvatarUrl } = require('./format');
 
-const BUTTON_VERIFY = 'mctiers:verify';
-const BUTTON_ENTER_WAITLIST = 'mctiers:enter_waitlist';
-const BUTTON_VIEW_COOLDOWN = 'mctiers:view_cooldown';
-const BUTTON_JOIN_QUEUE = 'mctiers:join_queue';
-const MODAL_VERIFY = 'mctiers:modal_verify';
-const MODAL_ENTER_WAITLIST = 'mctiers:modal_enter_waitlist';
+const BUTTON_VERIFY = 'itstiers:verify';
+const BUTTON_ENTER_WAITLIST = 'itstiers:enter_waitlist';
+const BUTTON_VIEW_COOLDOWN = 'itstiers:view_cooldown';
+const BUTTON_JOIN_QUEUE = 'itstiers:join_queue';
+const MODAL_VERIFY = 'itstiers:modal_verify';
+const MODAL_ENTER_WAITLIST = 'itstiers:modal_enter_waitlist';
 
 function guildBrand(guild) {
   if (!guild) {
     return {
-      name: config.brand?.name || 'MCTIERS',
+      name: config.brand?.name || 'ItsTiers',
       iconURL: config.brand?.iconUrl || undefined
     };
   }
@@ -32,7 +32,7 @@ function requestPanelPayload() {
   const embed = new EmbedBuilder()
     .setColor(color(config.brand?.accentColor, 0x5865f2))
     .setAuthor({
-      name: config.brand?.name || 'MCTIERS',
+      name: config.brand?.name || 'ItsTiers',
       iconURL: config.brand?.iconUrl || undefined
     })
     .setTitle('\u{1F4DD} Evaluation Testing Waitlist')

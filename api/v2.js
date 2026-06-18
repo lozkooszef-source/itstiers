@@ -1,9 +1,9 @@
 const {
-  mctiersMode,
-  mctiersModeList,
-  mctiersOverall,
-  mctiersProfile
-} = require('../src/api/mctiersCompat');
+  itstiersMode,
+  itstiersModeList,
+  itstiersOverall,
+  itstiersProfile
+} = require('../src/api/itstiersCompat');
 const { hasDatabase, query } = require('../src/db/pool');
 
 function setCors(res) {
@@ -148,17 +148,17 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'mode' && first === 'list') {
-      json(res, 200, await mctiersModeList());
+      json(res, 200, await itstiersModeList());
       return;
     }
 
     if (resource === 'mode' && first === 'overall') {
-      json(res, 200, await mctiersOverall(req.query.from, req.query.count));
+      json(res, 200, await itstiersOverall(req.query.from, req.query.count));
       return;
     }
 
     if (resource === 'mode' && first) {
-      const mode = await mctiersMode(first, req.query.from, req.query.count);
+      const mode = await itstiersMode(first, req.query.from, req.query.count);
 
       if (!mode) {
         json(res, 404, { error: 'mode_not_found' });
@@ -170,7 +170,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'profile' && first === 'by-name' && second) {
-      const profile = await mctiersProfile(second);
+      const profile = await itstiersProfile(second);
 
       if (!profile) {
         json(res, 404, { error: 'player_not_found' });
@@ -182,7 +182,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'profile' && first) {
-      const profile = await mctiersProfile(first);
+      const profile = await itstiersProfile(first);
 
       if (!profile) {
         json(res, 404, { error: 'player_not_found' });

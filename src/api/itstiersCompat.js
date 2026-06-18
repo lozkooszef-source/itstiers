@@ -259,7 +259,7 @@ function addModeAlias(entries, sourceKey, aliasKey, name, icon) {
   }
 }
 
-async function mctiersModeList() {
+async function itstiersModeList() {
   const entries = {};
 
   for (const mode of config.modes) {
@@ -286,12 +286,12 @@ async function mctiersModeList() {
   return entries;
 }
 
-async function mctiersOverall(from = 0, count = 10) {
+async function itstiersOverall(from = 0, count = 10) {
   const profiles = buildProfiles(await getAllResults()).map(publicProfile);
   return profiles.slice(limitValue(from, 0), limitValue(from, 0) + limitValue(count, 10));
 }
 
-async function mctiersMode(modeId, from = 0, count = 10) {
+async function itstiersMode(modeId, from = 0, count = 10) {
   const mode = findMode(modeId);
 
   if (!mode) {
@@ -321,7 +321,7 @@ async function mctiersMode(modeId, from = 0, count = 10) {
   return page;
 }
 
-async function mctiersProfile(identifier) {
+async function itstiersProfile(identifier) {
   const normalized = String(identifier || '').toLowerCase().replace(/-/g, '');
   const profiles = buildProfiles(await getAllResults());
   const profile = profiles.find((entry) => {
@@ -334,8 +334,8 @@ async function mctiersProfile(identifier) {
 }
 
 module.exports = {
-  mctiersMode,
-  mctiersModeList,
-  mctiersOverall,
-  mctiersProfile
+  itstiersMode,
+  itstiersModeList,
+  itstiersOverall,
+  itstiersProfile
 };

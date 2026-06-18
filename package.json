@@ -1,14 +1,14 @@
 {
-  "name": "mctiers-style-discord-bot",
+  "name": "itstiers-discord-bot",
   "version": "1.0.0",
-  "description": "Discord bot for MCTiers-style Minecraft testing waitlists.",
+  "description": "Discord bot for ItsTiers-style Minecraft testing waitlists.",
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
     "start": "node src/index.js",
     "deploy": "node src/deploy-commands.js",
     "migrate": "node src/db/migrate.js",
-    "check": "node --check src/index.js && node --check src/deploy-commands.js && node --check src/interactions.js && node --check src/utils/waitlist.js && node --check src/api/server.js && node --check src/api/mctiersCompat.js && node --check api/v2.js && node --check src/db/pool.js && node --check src/db/repository.js && node --check src/db/migrate.js"
+    "check": "node --check src/index.js && node --check src/deploy-commands.js && node --check src/interactions.js && node --check src/utils/waitlist.js && node --check src/api/server.js && node --check src/api/itstiersCompat.js && node --check api/v2.js && node --check src/db/pool.js && node --check src/db/repository.js && node --check src/db/migrate.js"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ChaosMace">
+  <defs>
+    <linearGradient id="head" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset=".5" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#64748b"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="55" fill="#111827" stroke="#334155" stroke-width="5"/>
+  <path d="M61 18h6v48h-6z" fill="url(#shaft)"/>
+  <path d="M34 27c17 3 20 18 20 30h-9c0-13-4-18-16-22zM94 27c-17 3-20 18-20 30h9c0-13 4-18 16-22z" fill="url(#head)" stroke="#111827" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M64 16c9 10 13 25 13 43H51c0-18 4-33 13-43z" fill="url(#head)" stroke="#111827" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M38 58h52l-6 18H44z" fill="#f59e0b" stroke="#111827" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M57 75h14l12 36H45z" fill="url(#shaft)" stroke="#111827" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m45 32 10 8m28-8-10 8m-9-18v18" stroke="#fff7ed" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+</svg>

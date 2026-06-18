@@ -59,6 +59,16 @@
       "source": "/mace",
       "destination": "/rankings/mace",
       "permanent": false
+    },
+    {
+      "source": "/chaosmace",
+      "destination": "/rankings/chaosmace",
+      "permanent": false
+    },
+    {
+      "source": "/spearmace",
+      "destination": "/rankings/spearmace",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -105,6 +115,14 @@
     {
       "source": "/rankings/mace",
       "destination": "/site/rankings/mace.html"
+    },
+    {
+      "source": "/rankings/chaosmace",
+      "destination": "/site/rankings/chaosmace.html"
+    },
+    {
+      "source": "/rankings/spearmace",
+      "destination": "/site/rankings/spearmace.html"
     },
     {
       "source": "/_next/static/chunks/b70f127b5a6ba32e.css",

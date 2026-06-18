@@ -19,6 +19,16 @@ function tierChoices() {
   }));
 }
 
+function addTierOption(command) {
+  return command.addStringOption((option) =>
+    option
+      .setName('tier')
+      .setDescription('Tier earned by the player')
+      .setRequired(true)
+      .addChoices(...tierChoices())
+  );
+}
+
 const commands = [
   new SlashCommandBuilder()
     .setName('setup')
@@ -58,6 +68,32 @@ const commands = [
         .setDescription('Testing mode. Optional inside a testing ticket.')
         .setRequired(false)
         .addChoices(...modeChoices())
+    ),
+
+  addTierOption(
+    addModeOption(
+      new SlashCommandBuilder()
+        .setName('award-tier')
+        .setDescription('Award a tier and post the result.')
+    )
+  )
+    .addUserOption((option) =>
+      option
+        .setName('player')
+        .setDescription('Player to award when using the command outside a testing ticket')
+        .setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('username')
+        .setDescription('Minecraft username, needed if the selected player is not verified')
+        .setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('server')
+        .setDescription('Server or region for the result')
+        .setRequired(false)
     ),
 
   addModeOption(

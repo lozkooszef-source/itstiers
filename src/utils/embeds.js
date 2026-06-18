@@ -178,7 +178,7 @@ function ticketOpenedPayload(activeTest) {
         `Region: **${activeTest.server}**`,
         `Current Rank: **${activeTest.previousTier || 'Unranked'}**`,
         '',
-        'Use `/close tier:<tier>` in this ticket when the test is finished.'
+        'Use `/award-tier mode:<mode> tier:<tier>` or `/close tier:<tier>` in this ticket when the test is finished.'
       ].join('\n')
     )
     .setTimestamp(new Date());

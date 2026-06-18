@@ -720,6 +720,29 @@ async function createHighTierTicket(guild, result) {
   return ticket;
 }
 
+async function sendResult(guild, result) {
+  const resultsChannelId = requiredDiscordId(config.resultsChannelId, 'resultsChannelId');
+  const resultsChannel = await fetchTextChannel(guild, resultsChannelId);
+
+  if (!resultsChannel) {
+    return { status: 'missing_results_channel', result };
+  }
+
+  const resultsMessage = await resultsChannel.send(resultPayload(result));
+
+  for (const reaction of config.resultReactions || []) {
+    try {
+      await resultsMessage.react(reaction);
+    } catch {
+      // Some guilds do not allow specific emoji reactions.
+    }
+  }
+
+  const ticket = await createHighTierTicket(guild, result);
+
+  return { status: 'ok', result, resultsMessage, ticket };
+}
+
 async function closeActiveTest(guild, mode, closingTesterId, tier, options = {}) {
   const state = loadState();
   const modeState = ensureModeState(state, mode.id);
@@ -773,26 +796,56 @@ async function closeActiveTest(guild, mode, closingTesterId, tier, options = {})
     await updateWaitlistMessage(guild, mode, { create: false });
   }
 
-  const resultsChannelId = requiredDiscordId(config.resultsChannelId, 'resultsChannelId');
-  const resultsChannel = await fetchTextChannel(guild, resultsChannelId);
+  return sendResult(guild, result);
+}
 
-  if (!resultsChannel) {
-    return { status: 'missing_results_channel', result };
+async function awardTier(guild, mode, testerId, tier, options = {}) {
+  const state = loadState();
+  const modeState = ensureModeState(state, mode.id);
+  const userId = options.userId;
+  const username = String(options.username || '').trim();
+
+  if (!userId) {
+    return { status: 'missing_player' };
   }
 
-  const resultsMessage = await resultsChannel.send(resultPayload(result));
-
-  for (const reaction of config.resultReactions || []) {
-    try {
-      await resultsMessage.react(reaction);
-    } catch {
-      // Some guilds do not allow specific emoji reactions.
-    }
+  if (!username) {
+    return { status: 'missing_username' };
   }
 
-  const ticket = await createHighTierTicket(guild, result);
+  const closedAt = nowIso();
+  const result = {
+    userId,
+    testerId,
+    username,
+    discordAvatarUrl: options.discordAvatarUrl || (await discordAvatarUrlFor(guild, userId)),
+    server: options.server || config.regions?.[0] || 'EU',
+    modeId: mode.id,
+    modeName: mode.name,
+    previousTier: previousTierFor(state, userId, mode.id) || 'Unranked',
+    tier,
+    requestedAt: null,
+    startedAt: null,
+    closedAt,
+    ticketChannelId: null
+  };
 
-  return { status: 'ok', result, resultsMessage, ticket };
+  modeState.lastSessionAt = closedAt;
+  modeState.activeTests = modeState.activeTests.filter((entry) => entry.userId !== userId);
+  modeState.queue = modeState.queue.filter((entry) => entry.userId !== userId);
+  modeState.waitlist = modeState.waitlist.filter((entry) => entry.userId !== userId);
+  state.results.push(result);
+  saveState();
+  await saveResult(result);
+
+  const waitlistChannel = await ensureWaitlistChannel(guild, mode, state, { create: false });
+
+  if (waitlistChannel) {
+    await removeUserFromChannel(waitlistChannel, result.userId);
+    await updateWaitlistMessage(guild, mode, { create: false });
+  }
+
+  return sendResult(guild, result);
 }
 
 async function removeFromWaitlist(guild, userId, mode = null) {
@@ -876,6 +929,7 @@ async function refreshAllWaitlistMessages(client) {
 
 module.exports = {
   addToWaitlist,
+  awardTier,
   closeActiveTest,
   cooldownRows,
   findModeByTicketChannel,

@@ -20,6 +20,7 @@ const {
 } = require('./utils/embeds');
 const {
   addToWaitlist,
+  awardTier,
   closeActiveTest,
   cooldownRows,
   findModeByTicketChannel,
@@ -187,11 +188,12 @@ async function pullNext(interaction) {
   );
 }
 
-async function closeTest(interaction) {
+async function closeTest(interaction, options = {}) {
   const requestedMode = modeFromOption(interaction);
   const ticketMode = findModeByTicketChannel(interaction.channelId);
   const mode = requestedMode || ticketMode;
   const tier = interaction.options.getString('tier');
+  const action = options.action || 'Closed';
 
   if (!mode) {
     return replyError(interaction, 'Unknown mode.');
@@ -223,7 +225,7 @@ async function closeTest(interaction) {
 
   const ticketLine = result.ticket ? ` High-tier ticket: ${result.ticket}.` : '';
   await interaction.editReply(
-    `Closed **${mode.name}** test for <@${result.result.userId}> as **${tier}**.${ticketLine}`
+    `${action} **${mode.name}** test for <@${result.result.userId}> as **${tier}**.${ticketLine}`
   );
 
   if (config.testingTickets?.deleteOnClose !== false && result.result.ticketChannelId) {
@@ -235,6 +237,75 @@ async function closeTest(interaction) {
   }
 
   return null;
+}
+
+async function awardTierCommand(interaction) {
+  const mode = modeFromOption(interaction);
+  const tier = interaction.options.getString('tier');
+  const target = interaction.options.getUser('player');
+  const usernameInput = interaction.options.getString('username')?.trim() || '';
+  const server = interaction.options.getString('server')?.trim() || config.regions?.[0] || 'EU';
+
+  if (!mode) {
+    return replyError(interaction, 'Unknown mode.');
+  }
+
+  if (!canTestMode(interaction.member, mode)) {
+    return replyError(interaction, `You are not a tester for ${mode.name}.`);
+  }
+
+  if (!target) {
+    return closeTest(interaction, { action: 'Awarded' });
+  }
+
+  if (target.bot) {
+    return replyError(interaction, 'You cannot award a tier to a bot account.');
+  }
+
+  if (usernameInput && !usernameIsValid(usernameInput)) {
+    return replyError(
+      interaction,
+      'Minecraft username must be 3-16 characters and can only contain letters, numbers and underscores.'
+    );
+  }
+
+  if (!server || server.length > 32) {
+    return replyError(interaction, 'Server/region must be 2-32 characters.');
+  }
+
+  const verifiedAccount = getVerifiedAccount(target.id);
+  const username = usernameInput || verifiedAccount?.username;
+
+  if (!username) {
+    return replyError(interaction, 'That player is not verified. Add username:<minecraft username> to award manually.');
+  }
+
+  await interaction.deferReply({ ephemeral: true });
+  const result = await awardTier(interaction.guild, mode, interaction.user.id, tier, {
+    userId: target.id,
+    username,
+    server,
+    discordAvatarUrl: target.displayAvatarURL({ size: 128 })
+  });
+
+  if (result.status === 'missing_results_channel') {
+    return interaction.editReply(
+      `Saved the result, but I could not find resultsChannelId. Result: ${result.result.username} - ${result.result.tier}.`
+    );
+  }
+
+  if (result.status === 'missing_player') {
+    return interaction.editReply('Select a player when awarding outside a testing ticket.');
+  }
+
+  if (result.status === 'missing_username') {
+    return interaction.editReply('That player is not verified. Add username:<minecraft username> to award manually.');
+  }
+
+  const ticketLine = result.ticket ? ` High-tier ticket: ${result.ticket}.` : '';
+  return interaction.editReply(
+    `Awarded **${mode.name}** tier to <@${result.result.userId}> as **${tier}**.${ticketLine}`
+  );
 }
 
 async function leaveWaitlist(interaction) {
@@ -271,6 +342,8 @@ async function handleCommand(interaction) {
       return pullNext(interaction);
     case 'close':
       return closeTest(interaction);
+    case 'award-tier':
+      return awardTierCommand(interaction);
     case 'leave':
       return leaveWaitlist(interaction);
     default:

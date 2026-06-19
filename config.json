@@ -106,6 +106,42 @@
       "name": "Speed",
       "cooldownHours": 24,
       "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "ogv",
+      "name": "OGV",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "diamondcrystal",
+      "name": "Diamond Crystal",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "diamondsmp",
+      "name": "DiamondSMP",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "bow",
+      "name": "Bow",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "cart",
+      "name": "Cart",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
+    },
+    {
+      "id": "elytra",
+      "name": "Elytra",
+      "cooldownHours": 24,
+      "testerRoleIds": ["1492532456811663361"]
     }
   ],
   "resultReactions": [

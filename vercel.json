@@ -74,6 +74,36 @@
       "source": "/speed",
       "destination": "/rankings/speed",
       "permanent": false
+    },
+    {
+      "source": "/ogv",
+      "destination": "/rankings/ogv",
+      "permanent": false
+    },
+    {
+      "source": "/diamondcrystal",
+      "destination": "/rankings/diamondcrystal",
+      "permanent": false
+    },
+    {
+      "source": "/diamondsmp",
+      "destination": "/rankings/diamondsmp",
+      "permanent": false
+    },
+    {
+      "source": "/bow",
+      "destination": "/rankings/bow",
+      "permanent": false
+    },
+    {
+      "source": "/cart",
+      "destination": "/rankings/cart",
+      "permanent": false
+    },
+    {
+      "source": "/elytra",
+      "destination": "/rankings/elytra",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -132,6 +162,30 @@
     {
       "source": "/rankings/speed",
       "destination": "/site/rankings/speed.html"
+    },
+    {
+      "source": "/rankings/ogv",
+      "destination": "/site/rankings/ogv.html"
+    },
+    {
+      "source": "/rankings/diamondcrystal",
+      "destination": "/site/rankings/diamondcrystal.html"
+    },
+    {
+      "source": "/rankings/diamondsmp",
+      "destination": "/site/rankings/diamondsmp.html"
+    },
+    {
+      "source": "/rankings/bow",
+      "destination": "/site/rankings/bow.html"
+    },
+    {
+      "source": "/rankings/cart",
+      "destination": "/site/rankings/cart.html"
+    },
+    {
+      "source": "/rankings/elytra",
+      "destination": "/site/rankings/elytra.html"
     },
     {
       "source": "/_next/static/chunks/b70f127b5a6ba32e.css",

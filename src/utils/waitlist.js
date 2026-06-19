@@ -13,7 +13,7 @@ const {
   saveResult,
   saveWaitlistSnapshot
 } = require('../db/repository');
-const { channelNameForMode } = require('./modes');
+const { channelNameForMode, normalize } = require('./modes');
 const { testerRoleIdsForMode } = require('./permissions');
 const {
   closedWaitlistPayload,
@@ -119,15 +119,28 @@ async function discordAvatarUrlFor(guild, userId) {
   return member?.user?.displayAvatarURL({ size: 128 }) || null;
 }
 
+function modeFromId(modeId) {
+  return config.modes.find((mode) => mode.id === modeId) || { id: modeId, name: modeId };
+}
+
 function previousTierFor(state, userId, modeId) {
+  const mode = modeFromId(modeId);
+
   return [...state.results].reverse().find((result) => {
-    return result.userId === userId && result.modeId === modeId;
+    return result.userId === userId && resultMatchesMode(result, mode);
   })?.tier;
+}
+
+function resultMatchesMode(result, mode) {
+  const modeId = normalize(mode.id);
+  const modeName = normalize(mode.name);
+
+  return normalize(result.modeId) === modeId || normalize(result.modeName) === modeName;
 }
 
 function cooldownRemainingForState(state, userId, mode) {
   const latestResult = [...state.results].reverse().find((result) => {
-    return result.userId === userId && result.modeId === mode.id;
+    return result.userId === userId && resultMatchesMode(result, mode);
   });
 
   if (!latestResult || !mode.cooldownHours) {
@@ -515,12 +528,6 @@ async function addToWaitlist(guild, userId, mode, server, discordAvatarUrl = nul
 
   if (!verified) {
     return { status: 'not_verified' };
-  }
-
-  const remainingMs = cooldownRemainingForState(state, userId, mode);
-
-  if (remainingMs > 0) {
-    return { status: 'cooldown', remainingMs };
   }
 
   const modeState = ensureModeState(state, mode.id);

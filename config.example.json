@@ -15,7 +15,7 @@
   "waitlist": {
     "maxQueueSize": 20,
     "queueRefreshSeconds": 10,
-    "pingOnStart": true
+    "pingOnStart": false
   },
   "testingTickets": {
     "categoryId": "",
@@ -98,6 +98,12 @@
     {
       "id": "spearmace",
       "name": "SpearMace",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "speed",
+      "name": "Speed",
       "cooldownHours": 24,
       "testerRoleIds": []
     }

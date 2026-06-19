@@ -39,7 +39,7 @@ function requestPanelPayload() {
     .setDescription(
       [
         'Upon applying, you will be added to a waitlist channel.',
-        'Here you will be pinged when a tester of your region is available.',
+        'Check the waitlist channel when a tester of your region is available.',
         'If you are HT3 or higher, a high ticket will be created',
         '',
         '\u2022 Region should be the region of the server you wish to test on',
@@ -79,7 +79,7 @@ function activeTesterLines(mode, modeState) {
   }
 
   return activeTesters.map((tester, index) => {
-    return `${index + 1}. <@${tester.userId}> (${mode.name})`;
+    return `${index + 1}. <@${tester.userId}>`;
   });
 }
 
@@ -139,7 +139,7 @@ function closedWaitlistPayload(mode, modeState, guild = null) {
     .setDescription(
       [
         'No testers for your region are available at this time.',
-        'You will be pinged when a tester is available.',
+        'Check the waitlist channel when a tester is available.',
         'Check back later!',
         '',
         `Last testing session: ${discordTimestamp(modeState.lastSessionAt)}`

@@ -69,6 +69,11 @@
       "source": "/spearmace",
       "destination": "/rankings/spearmace",
       "permanent": false
+    },
+    {
+      "source": "/speed",
+      "destination": "/rankings/speed",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -123,6 +128,10 @@
     {
       "source": "/rankings/spearmace",
       "destination": "/site/rankings/spearmace.html"
+    },
+    {
+      "source": "/rankings/speed",
+      "destination": "/site/rankings/speed.html"
     },
     {
       "source": "/_next/static/chunks/b70f127b5a6ba32e.css",

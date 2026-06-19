@@ -542,13 +542,6 @@ async function setWaitlistOpen(guild, mode, open, testerId = null) {
   const channel = await ensureWaitlistChannel(guild, mode, state);
   await updateWaitlistMessage(guild, mode, { forceNew: open });
 
-  if (open && config.waitlist?.pingOnStart && modeState.waitlist.length) {
-    const mentions = modeState.waitlist.map((entry) => `<@${entry.userId}>`).join(' ');
-    await channel.send({
-      content: `${mentions}\nTester(s) are now available for **${mode.name}**.`
-    });
-  }
-
   return { modeState, channel };
 }
 

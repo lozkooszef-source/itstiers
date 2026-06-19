@@ -22,6 +22,16 @@ const {
   resultPayload
 } = require('./embeds');
 
+const WAITLIST_NO_WRITE_PERMISSIONS = [
+  PermissionFlagsBits.SendMessages,
+  PermissionFlagsBits.SendMessagesInThreads,
+  PermissionFlagsBits.CreatePublicThreads,
+  PermissionFlagsBits.CreatePrivateThreads,
+  PermissionFlagsBits.AddReactions
+].filter(Boolean);
+
+const syncedWaitlistPermissionChannels = new Set();
+
 function nowIso() {
   return new Date().toISOString();
 }
@@ -170,7 +180,7 @@ async function waitlistRoleOverwrites(guild, mode) {
   return [
     {
       id: guild.roles.everyone,
-      deny: [PermissionFlagsBits.ViewChannel]
+      deny: [PermissionFlagsBits.ViewChannel, ...WAITLIST_NO_WRITE_PERMISSIONS]
     },
     {
       id: bot,
@@ -187,12 +197,87 @@ async function waitlistRoleOverwrites(guild, mode) {
       id: role,
       allow: [
         PermissionFlagsBits.ViewChannel,
-        PermissionFlagsBits.SendMessages,
         PermissionFlagsBits.ReadMessageHistory,
         PermissionFlagsBits.EmbedLinks
-      ]
+      ],
+      deny: WAITLIST_NO_WRITE_PERMISSIONS
     }))
   ];
+}
+
+function waitlistViewerPermissions() {
+  return {
+    ViewChannel: true,
+    SendMessages: false,
+    SendMessagesInThreads: false,
+    CreatePublicThreads: false,
+    CreatePrivateThreads: false,
+    AddReactions: false,
+    ReadMessageHistory: true
+  };
+}
+
+function waitlistParticipantIds(modeState) {
+  const ids = new Set();
+
+  for (const entry of modeState.waitlist || []) {
+    ids.add(entry.userId);
+  }
+
+  for (const entry of modeState.queue || []) {
+    ids.add(entry.userId);
+  }
+
+  for (const entry of modeState.activeTests || []) {
+    ids.add(entry.userId);
+  }
+
+  return [...ids].filter(Boolean);
+}
+
+async function syncWaitlistChannelPermissions(guild, channel, mode, modeState) {
+  if (syncedWaitlistPermissionChannels.has(channel.id)) {
+    return;
+  }
+
+  await ensureRoleCache(guild);
+  const bot = await botMember(guild);
+  const allowedRoles = new Set([
+    ...optionalDiscordIdArray(config.managerRoleIds, 'managerRoleIds'),
+    ...testerRoleIdsForMode(mode)
+  ]);
+  const roles = resolveConfiguredRoles(guild, [...allowedRoles], `${mode.id}.testerRoleIds`);
+
+  await channel.permissionOverwrites.edit(guild.roles.everyone, {
+    ViewChannel: false,
+    SendMessages: false,
+    SendMessagesInThreads: false,
+    CreatePublicThreads: false,
+    CreatePrivateThreads: false,
+    AddReactions: false
+  });
+
+  await channel.permissionOverwrites.edit(bot, {
+    ViewChannel: true,
+    SendMessages: true,
+    ReadMessageHistory: true,
+    EmbedLinks: true,
+    ManageChannels: true,
+    ManageRoles: true
+  });
+
+  for (const role of roles) {
+    await channel.permissionOverwrites.edit(role, {
+      ...waitlistViewerPermissions(),
+      EmbedLinks: true
+    });
+  }
+
+  for (const userId of waitlistParticipantIds(modeState)) {
+    await allowUserInChannel(channel, userId);
+  }
+
+  syncedWaitlistPermissionChannels.add(channel.id);
 }
 
 async function findExistingWaitlistChannel(guild, mode) {
@@ -225,6 +310,7 @@ async function ensureWaitlistChannel(guild, mode, state = loadState(), options =
   const existingById = await fetchTextChannel(guild, modeState.channelId);
 
   if (existingById) {
+    await syncWaitlistChannelPermissions(guild, existingById, mode, modeState);
     return existingById;
   }
 
@@ -233,6 +319,7 @@ async function ensureWaitlistChannel(guild, mode, state = loadState(), options =
   if (existingByName) {
     modeState.channelId = existingByName.id;
     saveState();
+    await syncWaitlistChannelPermissions(guild, existingByName, mode, modeState);
     return existingByName;
   }
 
@@ -256,11 +343,7 @@ async function ensureWaitlistChannel(guild, mode, state = loadState(), options =
 }
 
 async function allowUserInChannel(channel, userId) {
-  await channel.permissionOverwrites.edit(userId, {
-    ViewChannel: true,
-    SendMessages: true,
-    ReadMessageHistory: true
-  });
+  await channel.permissionOverwrites.edit(userId, waitlistViewerPermissions());
 }
 
 async function removeUserFromChannel(channel, userId) {

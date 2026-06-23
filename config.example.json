@@ -142,6 +142,36 @@
       "name": "Elytra",
       "cooldownHours": 24,
       "testerRoleIds": []
+    },
+    {
+      "id": "creeper",
+      "name": "Creeper",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "debuff",
+      "name": "DeBuff",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "trident",
+      "name": "Trident",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "manhunt",
+      "name": "Manhunt",
+      "cooldownHours": 24,
+      "testerRoleIds": []
+    },
+    {
+      "id": "bed",
+      "name": "Bed",
+      "cooldownHours": 24,
+      "testerRoleIds": []
     }
   ],
   "resultReactions": [

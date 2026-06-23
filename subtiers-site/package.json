@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node -e \"console.log('static build')\"",
-    "check": "node --check \"api/[...path].js\" && node --check dev-server.js",
+    "check": "node --check \"api/[...path].js\" && node --check api/tierlists.js && node --check \"api/tier/[mode].js\" && node --check \"api/rankings/[identifier].js\" && node --check \"api/profile/[identifier].js\" && node --check \"api/search_profile/[name].js\" && node --check dev-server.js",
     "dev": "node dev-server.js",
     "start": "node dev-server.js"
   }

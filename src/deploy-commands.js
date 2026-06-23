@@ -65,9 +65,8 @@ const commands = [
     .addStringOption((option) =>
       option
         .setName('mode')
-        .setDescription('Testing mode. Optional inside a testing ticket.')
-        .setRequired(false)
-        .addChoices(...modeChoices())
+        .setDescription('Testing mode')
+        .setRequired(true)
     ),
 
   addTierOption(

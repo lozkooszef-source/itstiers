@@ -148,17 +148,17 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'mode' && first === 'list') {
-      json(res, 200, await itstiersModeList());
+      json(res, 200, await itstiersModeList(req.query.group));
       return;
     }
 
     if (resource === 'mode' && first === 'overall') {
-      json(res, 200, await itstiersOverall(req.query.from, req.query.count));
+      json(res, 200, await itstiersOverall(req.query.from, req.query.count, req.query.group));
       return;
     }
 
     if (resource === 'mode' && first) {
-      const mode = await itstiersMode(first, req.query.from, req.query.count);
+      const mode = await itstiersMode(first, req.query.from, req.query.count, req.query.group);
 
       if (!mode) {
         json(res, 404, { error: 'mode_not_found' });
@@ -170,7 +170,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'profile' && first === 'by-name' && second) {
-      const profile = await itstiersProfile(second);
+      const profile = await itstiersProfile(second, req.query.group);
 
       if (!profile) {
         json(res, 404, { error: 'player_not_found' });
@@ -182,7 +182,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (resource === 'profile' && first) {
-      const profile = await itstiersProfile(first);
+      const profile = await itstiersProfile(first, req.query.group);
 
       if (!profile) {
         json(res, 404, { error: 'player_not_found' });

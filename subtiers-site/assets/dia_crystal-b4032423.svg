@@ -1,0 +1,53 @@
+<svg id="Grupo_2_copia" data-name="Grupo 2 copia" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-5 {
+        stroke: #fcfcfc;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        stroke-width: 86px;
+      }
+
+      .cls-2, .cls-5 {
+        stroke-width: 48px;
+      }
+
+      .cls-3 {
+        fill: #66c4ff;
+        stroke: #66c4ff;
+        stroke-width: 45px;
+      }
+
+      .cls-4 {
+        fill: #0078ff;
+        stroke: #0078ff;
+        stroke-width: 12px;
+      }
+
+      .cls-5 {
+        fill: #fcfcfc;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1" data-name="Grupo 1">
+    <path id="Forma_1" data-name="Forma 1" class="cls-1" d="M644.033,925.873L212.4,860.121l-146-458.394L379.96,96.793l432.955,69.89L957.339,620.112Z"/>
+    <path id="Línea_1" data-name="Línea 1" class="cls-2" d="M88.562,412.444L90.2,402.4l408.845,66.778-1.64,10.04Z"/>
+    <path id="Línea_1_copia" data-name="Línea 1 copia" class="cls-2" d="M793.5,178.3l7.152,7.245L505.8,476.639l-7.152-7.245Z"/>
+    <path id="Línea_2" data-name="Línea 2" class="cls-2" d="M640.787,900.433l-9.7,3.09L500.031,492.066l9.7-3.09Z"/>
+  </g>
+  <path id="Forma_1_copia" data-name="Forma 1 copia" class="cls-3" d="M595.313,780.079L317.006,737.822l-94.04-295.247,202.26-196.5L704.381,291,797.4,583.048Z"/>
+  <path id="Forma_2" data-name="Forma 2" class="cls-4" d="M334,717L249,449l245,25a11.2,11.2,0,0,1,3,2,10.738,10.738,0,0,1,2,3l90,276-1,1Z"/>
+  <path id="Línea_3" data-name="Línea 3" class="cls-5" d="M607.348,574.313l-3.117,1.037-31.282-94.014,3.118-1.038Z"/>
+  <path id="Línea_3_copia" data-name="Línea 3 copia" class="cls-5" d="M636.585,511.183l-0.855.281-8.621-25.64,0.856-.282Z"/>
+</svg>

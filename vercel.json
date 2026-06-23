@@ -62,7 +62,7 @@
     },
     {
       "source": "/chaosmace",
-      "destination": "/rankings/chaosmace",
+      "destination": "https://its-subtiers.vercel.app/ranking/chaosmace",
       "permanent": false
     },
     {
@@ -72,37 +72,77 @@
     },
     {
       "source": "/speed",
-      "destination": "/rankings/speed",
+      "destination": "https://its-subtiers.vercel.app/ranking/speed",
       "permanent": false
     },
     {
       "source": "/ogv",
-      "destination": "/rankings/ogv",
+      "destination": "https://its-subtiers.vercel.app/ranking/og_vanilla",
       "permanent": false
     },
     {
       "source": "/diamondcrystal",
-      "destination": "/rankings/diamondcrystal",
+      "destination": "https://its-subtiers.vercel.app/ranking/dia_crystal",
       "permanent": false
     },
     {
       "source": "/diamondsmp",
-      "destination": "/rankings/diamondsmp",
+      "destination": "https://its-subtiers.vercel.app/ranking/dia_smp",
       "permanent": false
     },
     {
       "source": "/bow",
-      "destination": "/rankings/bow",
+      "destination": "https://its-subtiers.vercel.app/ranking/bow",
       "permanent": false
     },
     {
       "source": "/cart",
-      "destination": "/rankings/cart",
+      "destination": "https://its-subtiers.vercel.app/ranking/minecart",
       "permanent": false
     },
     {
       "source": "/elytra",
-      "destination": "/rankings/elytra",
+      "destination": "https://its-subtiers.vercel.app/ranking/elytra",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/chaosmace",
+      "destination": "https://its-subtiers.vercel.app/ranking/chaosmace",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/speed",
+      "destination": "https://its-subtiers.vercel.app/ranking/speed",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/ogv",
+      "destination": "https://its-subtiers.vercel.app/ranking/og_vanilla",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/diamondcrystal",
+      "destination": "https://its-subtiers.vercel.app/ranking/dia_crystal",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/diamondsmp",
+      "destination": "https://its-subtiers.vercel.app/ranking/dia_smp",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/bow",
+      "destination": "https://its-subtiers.vercel.app/ranking/bow",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/cart",
+      "destination": "https://its-subtiers.vercel.app/ranking/minecart",
+      "permanent": false
+    },
+    {
+      "source": "/rankings/elytra",
+      "destination": "https://its-subtiers.vercel.app/ranking/elytra",
       "permanent": false
     }
   ],

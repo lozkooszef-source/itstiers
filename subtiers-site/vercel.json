@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/ranking/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    }
+  ]
+}

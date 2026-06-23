@@ -19,7 +19,47 @@ const MODE_ALIASES = new Map([
   ['chaos-mace', 'chaosmace'],
   ['chaos_mace', 'chaosmace'],
   ['spear-mace', 'spearmace'],
-  ['spear_mace', 'spearmace']
+  ['spear_mace', 'spearmace'],
+  ['og-vanilla', 'ogv'],
+  ['og_vanilla', 'ogv'],
+  ['ogvanilla', 'ogv'],
+  ['dia-crystal', 'diamondcrystal'],
+  ['dia_crystal', 'diamondcrystal'],
+  ['diamond-crystal', 'diamondcrystal'],
+  ['diamond_crystal', 'diamondcrystal'],
+  ['dia-smp', 'diamondsmp'],
+  ['dia_smp', 'diamondsmp'],
+  ['diamond-smp', 'diamondsmp'],
+  ['diamond_smp', 'diamondsmp'],
+  ['minecart', 'cart']
+]);
+
+const MAIN_MODE_IDS = new Set([
+  'crystal',
+  'uhc',
+  'pot',
+  'netpot',
+  'smp',
+  'sword',
+  'axe',
+  'mace',
+  'spearmace'
+]);
+
+const SUBTIERS_MODE_IDS = new Set([
+  'chaosmace',
+  'speed',
+  'ogv',
+  'diamondcrystal',
+  'diamondsmp',
+  'bow',
+  'cart',
+  'elytra',
+  'creeper',
+  'debuff',
+  'trident',
+  'manhunt',
+  'bed'
 ]);
 
 function normalize(value) {
@@ -34,13 +74,41 @@ function normalizeRegion(value) {
 function findMode(input) {
   const raw = String(input || '').toLowerCase();
   const normalized = normalize(input);
-  const alias = MODE_ALIASES.get(raw) || MODE_ALIASES.get(normalized);
+  const target = MODE_ALIASES.get(raw) || MODE_ALIASES.get(normalized) || normalized;
 
   return config.modes.find((mode) => {
-    return normalize(mode.id) === normalized
-      || normalize(mode.name) === normalized
-      || mode.id === alias;
+    return normalize(mode.id) === target
+      || normalize(mode.name) === target;
   });
+}
+
+function resolveModeGroup(value) {
+  const group = String(value || 'main').toLowerCase();
+
+  if (group === 'subtiers' || group === 'subtier' || group === 'custom') {
+    return 'subtiers';
+  }
+
+  if (group === 'all') {
+    return 'all';
+  }
+
+  return 'main';
+}
+
+function modeGroupSet(group) {
+  const resolved = resolveModeGroup(group);
+
+  if (resolved === 'all') {
+    return null;
+  }
+
+  return resolved === 'subtiers' ? SUBTIERS_MODE_IDS : MAIN_MODE_IDS;
+}
+
+function isModeInGroup(modeId, group) {
+  const allowed = modeGroupSet(group);
+  return !allowed || allowed.has(normalize(modeId));
 }
 
 function limitValue(value, fallback = 10) {
@@ -112,10 +180,10 @@ function emptyColumns() {
 }
 
 async function getAllResults() {
-  return listResults({ limit: 200 });
+  return listResults({ limit: 1000 });
 }
 
-function buildProfiles(results) {
+function buildProfiles(results, group = 'main') {
   const players = new Map();
   const latestByPlayerMode = new Map();
   const bestByPlayerMode = new Map();
@@ -129,6 +197,11 @@ function buildProfiles(results) {
 
     const key = playerKey(result);
     const modeKey = normalize(result.modeId);
+
+    if (!isModeInGroup(modeKey, group)) {
+      continue;
+    }
+
     const playerModeKey = `${key}:${modeKey}`;
     const currentLatest = latestByPlayerMode.get(playerModeKey);
     const currentBest = bestByPlayerMode.get(playerModeKey);
@@ -259,11 +332,15 @@ function addModeAlias(entries, sourceKey, aliasKey, name, icon) {
   }
 }
 
-async function itstiersModeList() {
+async function itstiersModeList(group = 'main') {
   const entries = {};
 
   for (const mode of config.modes) {
     const key = normalize(mode.id);
+
+    if (!isModeInGroup(key, group)) {
+      continue;
+    }
 
     entries[key] = {
       id: key,
@@ -279,26 +356,28 @@ async function itstiersModeList() {
   const crystal = entries.crystal;
   const netpot = entries.netpot;
 
-  addModeAlias(entries, 'crystal', 'ltm', 'LTMs', '2v2.svg');
-  addModeAlias(entries, 'crystal', 'vanilla', crystal?.name || 'Vanilla', 'vanilla.svg');
-  addModeAlias(entries, 'netpot', 'nethop', netpot?.name || 'NethOP', 'nethop.svg');
+  if (resolveModeGroup(group) !== 'subtiers') {
+    addModeAlias(entries, 'crystal', 'ltm', 'LTMs', '2v2.svg');
+    addModeAlias(entries, 'crystal', 'vanilla', crystal?.name || 'Vanilla', 'vanilla.svg');
+    addModeAlias(entries, 'netpot', 'nethop', netpot?.name || 'NethOP', 'nethop.svg');
+  }
 
   return entries;
 }
 
-async function itstiersOverall(from = 0, count = 10) {
-  const profiles = buildProfiles(await getAllResults()).map(publicProfile);
+async function itstiersOverall(from = 0, count = 10, group = 'main') {
+  const profiles = buildProfiles(await getAllResults(), group).map(publicProfile);
   return profiles.slice(limitValue(from, 0), limitValue(from, 0) + limitValue(count, 10));
 }
 
-async function itstiersMode(modeId, from = 0, count = 10) {
+async function itstiersMode(modeId, from = 0, count = 10, group = 'main') {
   const mode = findMode(modeId);
 
-  if (!mode) {
+  if (!mode || !isModeInGroup(mode.id, group)) {
     return null;
   }
 
-  const profiles = buildProfiles(await getAllResults());
+  const profiles = buildProfiles(await getAllResults(), group);
   const columns = emptyColumns();
   const offset = limitValue(from, 0);
   const size = limitValue(count, 10);
@@ -321,9 +400,9 @@ async function itstiersMode(modeId, from = 0, count = 10) {
   return page;
 }
 
-async function itstiersProfile(identifier) {
+async function itstiersProfile(identifier, group = 'main') {
   const normalized = String(identifier || '').toLowerCase().replace(/-/g, '');
-  const profiles = buildProfiles(await getAllResults());
+  const profiles = buildProfiles(await getAllResults(), group);
   const profile = profiles.find((entry) => {
     return entry.uuid.toLowerCase().replace(/-/g, '') === normalized
       || entry.name.toLowerCase() === normalized

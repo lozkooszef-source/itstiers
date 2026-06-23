@@ -1,0 +1,35 @@
+<svg id="Grupo_1" data-name="Grupo 1" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fcfcfc;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #42957e;
+        stroke: #42957e;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        stroke-width: 12px;
+      }
+
+      .cls-3 {
+        fill-opacity: 0.95;
+        stroke-width: 160px;
+      }
+    </style>
+  </defs>
+  <path id="Forma_3" data-name="Forma 3" class="cls-1" d="M638,321l4-2L864,102h61a14.384,14.384,0,0,1,4,3,10.786,10.786,0,0,1,2,4v59L712,390Z"/>
+  <path id="Forma_1" data-name="Forma 1" class="cls-1" d="M483,352V229L674,38h61a14.284,14.284,0,0,1,3,2,3.124,3.124,0,0,1,1,2v62L611,232V333Z"/>
+  <path id="Forma_1_copia" data-name="Forma 1 copia" class="cls-1" d="M679,541H802L993,350V289a14.3,14.3,0,0,0-2-3,3.123,3.123,0,0,0-2-1H927L799,413H698Z"/>
+  <path id="Forma_2" data-name="Forma 2" class="cls-2" d="M493,439l-3-89,58-54,60-2L735,420v53l-57,62-95,3Z"/>
+  <path id="Línea_1" data-name="Línea 1" class="cls-3" d="M111.587,914.088l-0.707-.707,442.5-442.5,0.707,0.707Z"/>
+  <path id="Línea_5" data-name="Línea 5" class="cls-2" d="M490.019,433.436h-1.038V353.763h1.038v79.673Zm-0.237-79.669-0.793-.817,57.229-58.965,0.793,0.817ZM607.313,293.02v0.957H546.766V293.02h60.547ZM734.206,473.282L735,474.1l-57.064,58.977-0.791-.817ZM734,420.488h1v51.791h-1V420.488ZM582,534.031l35.013-.947h60.373v0.958ZM606.648,294.35l0.7-.707,125,123.5-0.7.707Z"/>
+</svg>
